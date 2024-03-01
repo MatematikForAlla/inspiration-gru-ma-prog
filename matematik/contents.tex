@@ -1,0 +1,205 @@
+\mode*
+
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+% Vad har matte med programmering att göra? KORT (=enstaka minut)
+% 
+% Vad är kryptering? Kanske en 10 minutersuppgift där klassen ska kryptera 
+% ordet "pannkaka" på valfritt sätt och sedan ett resonemang kring vad som är 
+% säker och osäker kryptering.
+% 
+% Ett program för att testa säkerheten i ett lösenord, för "lek" timmen efter.
+
+\section{Vad är matematik?}
+
+% Eleverna ska tycka att programmering är intressant och förstå att 
+% mattekunskaper är bra att ha :D
+
+\begin{frame}
+  \begin{example}<1,3>
+    \begin{itemize}
+      \item En triangel har basen \SI{\alert<3>2}{\centi\metre} och höjden 
+        \SI{\alert<3>3}{\centi\metre}.
+      \item En rektangel har basen \SI{\alert<3>2}{\centi\metre} och höjden 
+        \SI{\alert<3>3}{\centi\metre}.
+      \item Hur mycket större area har rektangeln?
+    \end{itemize}
+  \end{example}
+
+  \begin{example}<2,3>
+    \begin{itemize}
+      \item En triangel har basen \(\SI{\alert<3>b}{\centi\metre}\) och höjden 
+        \(\SI{\alert<3>h}{\centi\metre}\).
+      \item En rektangel har basen \(\SI{\alert<3>b}{\centi\metre}\) och höjden 
+        \(\SI{\alert<3>h}{\centi\metre}\).
+      \item Kommer rektangeln alltid att ha dubbla arean?
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \begin{solution}
+    \begin{itemize}
+      \item Ja, rektangeln kommer alltid att ha dubbla arean.
+      \item Arean för rektangeln är \(bh\), medan arean för triangeln är 
+        \(\frac{1}{2}bh\).
+      \item \(b\) och \(h\) var ju desamma i båda fallen.
+    \end{itemize}
+  \end{solution}
+\end{frame}
+
+\begin{frame}
+  \begin{question}
+    \begin{itemize}
+      \item Varför beräknas triangelns area med formeln \(\frac{bh}{2}\)?
+      \item Varför beräknas rektangelns area med formeln \(bh\)?
+    \end{itemize}
+  \end{question}
+\end{frame}
+
+\begin{frame}
+  \begin{solution}
+    \begin{itemize}
+      \item Det följer av hur vi definierar area.
+      \item Meter för längd.
+      \item Kvadratmeter för area.
+    \end{itemize}
+  \end{solution}
+
+%  \pause
+%
+%  \begin{remark}
+%    \begin{itemize}
+%      \item Vi kräver även några fler grundläggande antaganden.
+%      \item Om två linjer korsar varandra, då är vinkelsumman vid korsningen 
+%        alltid 360 grader.
+%      \item Alla rätvinkliga vinklar är 90 grader.
+%    \end{itemize}
+%  \end{remark}
+\end{frame}
+
+\section{Varför är matematik centralt för datasäkerhet?}
+
+\begin{frame}
+  \begin{remark}
+    \begin{itemize}
+      \item Vi kan inte testa säkerheten.
+      \item Vi vet inte hur angriparen kommer att göra.
+      \item Vi måste veta att hur angriparen än gör, så lyckas hen inte.
+    \end{itemize}
+  \end{remark}
+
+  \pause
+
+  \begin{example}
+    \begin{itemize}
+      \item Att testa säkerheten är som att testa att rektangeln har mer area 
+        än triangeln.
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \begin{solution}
+    \begin{itemize}
+      \item Vi behöver arbeta systematiskt och deduktivt med matematik.
+    \end{itemize}
+  \end{solution}
+\end{frame}
+
+\begin{frame}
+  \begin{exercise}
+    \begin{itemize}
+      \item Anna valde sitt lösenord på följande sätt:
+      \item Hon valde ett ord hon tycker om, sedan lade hon till två siffror 
+        och ett specialtecken i slutet.
+      \item En dator kan gissa mellan 100\,000 och 1\,000\,000 lösenord per 
+        sekund.
+      \item Hur lång tid tar det att knäcka Annas lösenord?
+    \end{itemize}
+  \end{exercise}
+
+  \pause
+
+  \begin{exercise}
+    \begin{itemize}
+      \item Lars valde sitt lösenord annorlunda.
+      \item Han valde ett ord och översatte det till 1337-speak.
+      \item Hur lång tid tar det att knäcka hans lösenord?
+    \end{itemize}
+  \end{exercise}
+\end{frame}
+
+\begin{frame}
+  \begin{solution}
+    \begin{itemize}
+      \item<+-> Hur många ord har de att välja mellan?
+      \item<+-> Svenska Akademiens Ordlista har ungefär 125\,000 ord: 
+        \(125\,000^1\) möjligheter.
+      \item<+-> Anna valde två siffror och ett specialtecken slumpmässigt: 
+        \(10^3\) möjligheter.
+      \item<+-> Lars ändrade till 1337-speak, detta är deterministiskt: \(1\) 
+        möjlighet.
+      \item<+-> Den \alert{långsamma} datorn behöver \(\frac{125\,000\cdot 
+        10^3}{100\,000} = 1250\) sekunder, eller strax under 21 minuter för att 
+        knäcka Annas lösenord.
+      \item<+-> Den \alert{långsamma} datorn behöver \(\frac{125\,000\cdot 
+        1}{100\,000} = 
+        1.25\) sekunder för Lars lösenord.
+    \end{itemize}
+  \end{solution}
+\end{frame}
+
+\begin{frame}
+  \begin{exercise}
+    \begin{itemize}
+      \item Evin valde fyra slumpmässigt valda ord ur Svenska Akademiens 
+        Ordlista som sitt lösenord.
+      \item Inga siffror, inga specialtecken, inget 1337-speak.
+      \item Hur lång tid tar det att knäcka hennes lösenord?
+    \end{itemize}
+  \end{exercise}
+\end{frame}
+
+\begin{frame}
+  \begin{solution}
+    \begin{itemize}
+      \item Evin valde fyra slumpmässiga ord: det ger \(125\,000^3\) 
+        möjligheter.
+      \item Den \alert{snabba} datorn behöver \(\frac{125\,000^3}{1\,000\,000} 
+        = 1953125000\) sekunder, eller 62 år.
+    \end{itemize}
+  \end{solution}
+\end{frame}
+
+\begin{frame}
+  \begin{question}
+    \begin{itemize}
+      \item Kommer Evins sätt att välja lösenord alltid att vara bättre?
+      \item Finns det bättre gissningsalgoritmer som knäcker hennes lösenord 
+        snabbare?
+    \end{itemize}
+  \end{question}
+\end{frame}
+
+\begin{frame}
+  \begin{question}
+    \begin{itemize}
+      \item Egentligen borde det ta hälfen så lång tid i medel.
+      \item Varför?
+    \end{itemize}
+  \end{question}
+\end{frame}
+
+\begin{frame}
+  \begin{remark}[Algoritmer]
+    \begin{itemize}
+      \item Ovan diskuterade vi olika algoritmer för att skapa och gissa 
+        lösenord.
+      \item Vi kan skriva ett pythonprogram som faktiskt gissar lösenord.
+    \end{itemize}
+  \end{remark}
+\end{frame}
+

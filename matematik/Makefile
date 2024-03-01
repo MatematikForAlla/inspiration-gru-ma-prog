@@ -6,8 +6,6 @@ LATEXFLAGS+=	-shell-escape
 SRC+=		preamble.tex
 SRC+=		abstract.tex contents.tex
 
-DEPENDS=	fig/tri-rekt.pdf
-
 notes.pdf: notes.tex
 notes.pdf: ${SRC} ${DEPENDS}
 
