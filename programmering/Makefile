@@ -14,7 +14,6 @@ DEPENDS+=	fig/Algorithms-of-Oppression.jpg
 DEPENDS+=	fig/hacking-jeep.png
 DEPENDS+=	fig/Weapons-of-Math-Destruction.jpg
 DEPENDS+=	fig/The-Age-of-Surveillance-Capitalism.jpg
-DEPENDS+=	fig/tay.ai.png
 DEPENDS+=	fig/adint.png
 
 notes.pdf: notes.tex
