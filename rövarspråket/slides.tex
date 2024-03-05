@@ -1,6 +1,9 @@
 \documentclass[ignoreframetext]{beamer}
 \input{preamble.tex}
 
+\usepackage{translator}
+\newtranslation[to=swedish]{Example}{Exempel}
+
 \usetheme{Berlin}
 \setbeamertemplate{footline}%{miniframes theme}
 {%
@@ -58,9 +61,9 @@
 
 \ProvideDocumentEnvironment{remark}{o}{%
   \IfValueTF{#1}{%
-    \begin{alertblock}{Note: #1}
+    \begin{alertblock}{Anmärkning: #1}
   }{%
-    \begin{alertblock}{Note}
+    \begin{alertblock}{Anmärkning}
   }
 }{%
   \end{alertblock}
@@ -81,9 +84,9 @@
   \setbeamercolor{block title}{bg=orange,fg=white}
   \setbeamercolor{local structure}{fg=orange}
   \IfValueTF{#1}{%
-    \begin{block}{Question: #1}
+    \begin{block}{Fråga: #1}
   }{%
-    \begin{block}{Question}
+    \begin{block}{Fråga}
   }
 }{%
   \end{block}
@@ -94,9 +97,9 @@
   \setbeamercolor{block title}{bg=yellow,fg=black}
   \setbeamercolor{local structure}{fg=yellow}
   \IfValueTF{#1}{%
-    \begin{block}{Exercise: #1}
+    \begin{block}{Övning: #1}
   }{%
-    \begin{block}{Exercise}
+    \begin{block}{Övning}
   }
 }{%
   \end{block}
