@@ -146,9 +146,8 @@ Detta definierar funktionen [[till_rövarspråket]] (raden med
 [[def till_rövarspråket]]) som vi sedan kan använda i huvudprogrammet genom att 
 anropa den, raden med [[till_rövarspråket(...)]] i \cref{UseTo}.
 
-Det som händer i \cref{AnvändaTillRövarspråket} är att vi tar översättningen 
-som [[till_rövarspråket]] returnerar och sparar den i variabeln 
-[[översättning]].
+Det som händer i \cref{UseTo} är att vi tar översättningen som 
+[[till_rövarspråket]] returnerar och sparar den i variabeln [[översättning]].
 Sedan skriver vi ut den variabeln med [[print]].
 
 Låt oss nu titta på hur vi åstadkommer själva översättningen.
@@ -219,7 +218,7 @@ Det är tack vare \mintinline{python}{tecken + "o" + tecken.lower()}.
 
 Om vi tittar på funktionen som helhet så ser den nu ut som följer.
 \begin{frame}[fragile]
-\inputminted[firstline=10,lastline=22]{python}{rovarspraket.py}
+\inputminted[firstline=11,lastline=23]{python}{rovarspraket.py}
 \end{frame}
 
 
@@ -300,9 +299,9 @@ return översättning
 @
 
 \pause
-\begin{remark}[Skillad i for-satsen mot tidigare]
+\begin{remark}[Skillnad i for-satsen mot tidigare]
 \only<article>{Notera hur for-satsen skiljer sig mot tidigare:}
-\inputminted[firstline=16,lastline=17]{python}{rovarspraket.py}
+\inputminted[firstline=17,lastline=18]{python}{rovarspraket.py}
 \only<article>{Vi återkommer till varför vi gör så här.}
 \end{remark}
 \end{frame}
@@ -331,6 +330,8 @@ Varför behöver vi [[index += 2]]?
 Om vi gör en översättning (det är då vi kör [[index += 2]]), då ska vi inte 
 fortsätta med nästa tecken: de två efterföljande tecknen \enquote{hör ju till 
 samma tecken}, vi måste således hoppa över dem också.
+(Anledningen till att vi har [[index += 2]] istället för [[index += 3]] är att 
+vi redan har en [[index += 1]] i slutet av while-satsen.)
 
 Utan detta skulle vi inte få någon översättning: för om vi översätter första 
 bokstaven i \enquote{hoh}, nämligen h; sedan översätter vi o, som inte är en 
@@ -361,7 +362,7 @@ Då får vi utskriften:
 
 Slutligen ser funktionen i sin helhet ut som följer.
 \begin{frame}[fragile,allowframebreaks]
-\inputminted[firstline=25,lastline=47]{python}{rovarspraket.py}
+\inputminted[firstline=26,lastline=48]{python}{rovarspraket.py}
 \end{frame}
 
 
