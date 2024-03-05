@@ -471,17 +471,14 @@ Nu när vi har skapat programmet kan vi experimentera vidare.
   Vad händer om vi översätter en text som innehåller siffror?
 \end{exercise}
 \begin{onlyenv}<article>
-\begin{solution}
   Detta är inget problem, det hanteras på samma sätt som när vi hade med 
   skiljetecken och mellanslag.
-\end{solution}
 \end{onlyenv}
 
 \begin{exercise}
   Vad händer om vi översätter en text som redan är på rövarspråket?
 \end{exercise}
 \begin{onlyenv}<article>
-\begin{solution}
   Vi kan testa detta.
   \begin{pyblock}
 en_översättning = till_rövarspråket("hej")
@@ -501,7 +498,6 @@ print(f"{två_tillbaka=}")
   \end{pyblock}
   Detta ger utmatningen:
   \stdoutpythontex[verbatim]
-\end{solution}
 \end{onlyenv}
 
 \begin{exercise}
@@ -509,7 +505,6 @@ print(f"{två_tillbaka=}")
   rövarspråket till vanlig text?
 \end{exercise}
 \begin{onlyenv}<article>
-\begin{solution}
   Vi kan testa detta.
   \begin{pyblock}
 en_tillbaka = från_rövarspråket("hej")
@@ -517,7 +512,6 @@ print(f"{en_tillbaka=}")
   \end{pyblock}
   Detta ger utmatningen:
   \stdoutpythontex[verbatim]
-\end{solution}
 \end{onlyenv}
 \end{frame}
 
