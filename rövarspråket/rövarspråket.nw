@@ -369,17 +369,158 @@ Slutligen ser funktionen i sin helhet ut som följer.
 
 Nu när vi har funktioner för att översätta till och från rövarspråket, kan vi 
 använda dem i huvudprogrammet.
+
+Det vi vill att huvudprogrammet ska göra är att låta användaren välja om hen 
+vill översätta till eller från rövarspråket.
+\begin{frame}[fragile]
+\begin{example}[Använda huvudprogrammet]
+\only<article>{När vi kör programmet körs huvudprogrammet, vi vill att det ska 
+se ut ungefär såhär:}
+  \begin{minted}{text}
+$ python3 rövarspråket.py
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) t
+Skriv in texten du vill översätta: hej
+Översättning: hohejoj
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) f
+Skriv in texten du vill översätta: hohejoj
+Översättning: hej
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) a
+Tack för den här gången, på återseende!
+$
+  \end{minted}
+\end{example}
+\end{frame}
+
+\begin{frame}
+\begin{exercise}[Strukturera huvudprogrammet]
+Hur kan vi strukturera huvudprogrammet för att åstadkomma detta?
+\end{exercise}
+\end{frame}
+
+Vi kan strukturera huvudprogrammet såhär.
+Då vi vill att programmet repeterar så länge användaren inte väljer avsluta så 
+är det lämpligast att använda en while-sats.
+Sedan kollar vi vilket val användaren gjort och anropar rätt funktion.
+\begin{frame}[fragile]
 <<huvudprogrammet>>=
-pass
+while (val := input(MENYVAL)) != "a":
+  if val == "t":
+    <<översätt till rövarspråket>>
+  elif val == "f":
+    <<översätt från rövarspråket>>
+  else:
+    <<hantera felaktiga val>>
+<<konstanter>>=
+MENYVAL = "Vill du översätta till eller från rövarspråket" \
+    "eller avsluta? (t/f/a) "
 @
+\end{frame}
+
+Det som händer i koden ovan är att vi läser in ett val från användaren 
+([[input(MENYVAL)]]) och sparar det i variabeln [[val]] (genom [[val := ...]]).
+När det är gjort kollar vi om användaren valde att avsluta, om så är fallet kör 
+vi inget av det som står i while-satsen.
+Om användaren valde något annat än \enquote{a}, så kör vi raderna i 
+while-satsen.
+
+I while-satsen kollar vi sedan vilket val användaren gjort och anropar rätt 
+funktion.
+Om användaren valt något annat än \enquote{t} eller \enquote{f}, så hanterar vi 
+det som ett felaktigt val.
+Vi behöver inte kolla efter \enquote{a} i while-satsen, eftersom vi redan gjort 
+det i villkoret för while-satsen.
+
+För varje val är det bara att anropa rätt funktion, precis som vi gjorde i 
+\cref{UseTo} och \cref{UseFrom}.
+\begin{frame}[fragile]
+<<översätt till rövarspråket>>=
+text = input("Skriv in texten du vill översätta: ")
+print("Översättning:", till_rövarspråket(text))
+<<översätt från rövarspråket>>=
+text = input("Skriv in texten du vill översätta: ")
+print("Översättning:", från_rövarspråket(text))
+<<hantera felaktiga val>>=
+print("Felaktigt val, försök igen.")
+@
+\end{frame}
+
+Om vi tittar på koden för huvudprogrammet i sin helhet så ser den ut som 
+följer.
+\begin{frame}[fragile,allowframebreaks]
+\inputminted[firstline=51,lastline=64]{python}{rovarspraket.py}
+\end{frame}
+
 
 \section{Koden i helhet}
 
-Slutligen, låt oss titta på hela koden i sin helhet.
+Slutligen, låt oss titta på koden för hela modulen i sin helhet.
 \begin{frame}[allowframebreaks,fragile]
 \inputminted{python}{rovarspraket.py}
 \end{frame}
 
+
+\section{Experimentera vidare}
+
+Nu när vi har skapat programmet kan vi experimentera vidare.
+\begin{frame}[fragile]
+\begin{exercise}
+  Vad händer om vi översätter en text som innehåller siffror?
+\end{exercise}
+\begin{onlyenv}<article>
+\begin{solution}
+  Detta är inget problem, det hanteras på samma sätt som när vi hade med 
+  skiljetecken och mellanslag.
+\end{solution}
+\end{onlyenv}
+
+\begin{exercise}
+  Vad händer om vi översätter en text som redan är på rövarspråket?
+\end{exercise}
+\begin{onlyenv}<article>
+\begin{solution}
+  Vi kan testa detta.
+  \begin{pyblock}
+en_översättning = till_rövarspråket("hej")
+print(f"{en_översättning=}")
+två_översättningar = till_rövarspråket(en_översättning)
+print(f"{två_översättningar=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+
+  Låt oss nu översätta tillbaka.
+  \begin{pyblock}
+en_tillbaka = från_rövarspråket(två_översättningar)
+print(f"{en_tillbaka=}")
+två_tillbaka = från_rövarspråket(en_tillbaka)
+print(f"{två_tillbaka=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+\end{solution}
+\end{onlyenv}
+
+\begin{exercise}
+  Vad händer om vi översätter en vanlig text (som inte är på rövarspråket) från 
+  rövarspråket till vanlig text?
+\end{exercise}
+\begin{onlyenv}<article>
+\begin{solution}
+  Vi kan testa detta.
+  \begin{pyblock}
+en_tillbaka = från_rövarspråket("hej")
+print(f"{en_tillbaka=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+\end{solution}
+\end{onlyenv}
+\end{frame}
+
+Finns det andra saker vi kan undersöka?
 
 \begin{frame}[allowframebreaks]
   \printbibliography
