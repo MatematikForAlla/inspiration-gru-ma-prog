@@ -1,0 +1,526 @@
+\title{%
+  Rövarspråket
+}
+\author{%
+  Daniel Bosk\thanks{%
+    Detta verk är licensierat under Creative Commons Erkännande-DelaLika 4.0 
+    Internationell Licens.
+  }
+}
+\institute{%
+  KTH EECS
+}
+
+@
+
+\mode*
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
+\clearpage
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\clearpage
+
+\section{Översikt}
+
+Vi vill skriva ett program ([[<<rövarspråket.py>>]]) som översätter text till 
+och från rövarspråket.
+Rövarspråket funkar på så sätt att för varje konsonant i ordet lägger man till 
+ett \enquote{o} efter, sedan samma konsonant igen.
+\begin{frame}
+\begin{example}[Några översättningar till rövarspråket]
+  Exempelvis blir
+  \begin{itemize}
+    \item \enquote{hej} till \enquote{hohejoj},
+    \item \enquote{bil} till \enquote{bobilol} och
+    \item \enquote{busshållplats} till 
+    \enquote{bobusoshohålollopoplalalatotsos}.
+  \end{itemize}
+\end{example}
+\end{frame}
+
+
+\subsection{Programstruktur}
+
+Vi vill ha följande struktur på koden.
+\begin{frame}[fragile]
+<<rövarspråket.py>>=
+"""
+<<kort beskrivning av denna modul>>
+"""
+
+<<konstanter>>
+<<hjälpfunktioner>>
+
+def huvudfunktion():
+  """
+  <<kort beskrivning av huvudprogrammet>>
+  """
+  <<huvudprogrammet>>
+
+if __name__ == '__main__':
+  main()
+@
+\end{frame}
+
+Fördelen med denna struktur är att vi kan återanvända hjälpfunktionerna i andra 
+program.
+Funktionen \texttt{huvudfunktion} kommer då bara att köras om vi kör programmet 
+som huvudprogram, dvs kör [[python3 rövarspråket.py]].
+Den kommer inte att köras om vi importerar programmet i ett annat program, dvs 
+\mintinline{python}{import rövarspråket}.
+
+
+\subsection{Modulen och huvudprogrammet}
+
+Låt oss nu beskriva modulen och huvudprogrammet, så att vi kan se vad som 
+skiljer.
+\begin{frame}[fragile]
+<<kort beskrivning av denna modul>>=
+Denna modul innehåller funktioner som gör det
+enkelt att översätta till och från rövarspråket.
+<<kort beskrivning av huvudprogrammet>>=
+Huvudprogrammet läser in en sträng från användaren
+och översätter den till rövarspråket.
+@
+\end{frame}
+
+
+\section{Översätta till och från rövarspråket}
+
+Låt oss nu fokusera på hur vi översätter till och från rövarspråket.
+
+\subsection{Översätta till rövarspråket}
+
+Vi vill ha en hjälpfunktioner som översätter en sträng till rövarspråket.
+Som vi nämnde tidigare ska vi lägga till ett \enquote{o} efter varje konsonant 
+i strängen, sedan lägga till en extra kopia av konsonanten.
+
+\begin{frame}
+\begin{example}[Hur översättning ska ske]
+  Vi vill ha en funktion som
+  \begin{itemize}
+    \item givet \enquote{hej} returnerar \enquote{hohejoj},
+    \item givet \enquote{bil} returnerar \enquote{bobilol} och
+    \item givet \enquote{busshållplats} returnerar 
+    \enquote{bobusoshohålollopoplalalatotsos}.
+    \item och så vidare.
+  \end{itemize}
+\end{example}
+\end{frame}
+
+Om vi skapar en sådan funktion så kan vi använda den i huvudprogrammet.
+\begin{frame}[fragile]
+<<hjälpfunktioner>>=
+def till_rövarspråket(text):
+  """
+  Översätt `text` till rövarspråket.
+  Returnera översättningen.
+  """
+  <<returnera [[text]] på rövarspråket>>
+@
+
+\begin{pycode}
+from rövarspråket import *
+\end{pycode}
+
+\begin{example}[Använda {[[till_rövarspråket]]}]\label{UseTo}
+  Om vi kör följande kod:
+  \begin{pyblock}
+översättning = till_rövarspråket("hej")
+print(översättning)
+  \end{pyblock}
+
+  Då får vi utskriften:
+  \stdoutpythontex
+\end{example}
+\end{frame}
+
+Detta definierar funktionen [[till_rövarspråket]] (raden med
+[[def till_rövarspråket]]) som vi sedan kan använda i huvudprogrammet genom att 
+anropa den, raden med [[till_rövarspråket(...)]] i \cref{UseTo}.
+
+Det som händer i \cref{UseTo} är att vi tar översättningen som 
+[[till_rövarspråket]] returnerar och sparar den i variabeln [[översättning]].
+Sedan skriver vi ut den variabeln med [[print]].
+
+Låt oss nu titta på hur vi åstadkommer själva översättningen.
+\begin{frame}
+\begin{exercise}[Tänk ut algoritmen]
+Vi har texten som en sträng i variabeln [[text]].
+Vi vill ha översättningen i en variabel [[översättning]].
+Hur kan vi åstadkomma detta?
+\end{exercise}
+\end{frame}
+Vi börjar med att [[översättning]] är en tom sträng, sedan bygger vi upp 
+översättningen allteftersom vi går igenom texten i [[text]] (tecken för 
+tecken).
+\begin{frame}[fragile]
+<<returnera [[text]] på rövarspråket>>=
+översättning = ""
+for tecken in text:
+  <<översätt [[tecken]], lägg till i [[översättning]]>>
+
+return översättning
+@
+\end{frame}
+
+När vi översätter varje tecken.
+\begin{frame}[fragile]
+<<översätt [[tecken]], lägg till i [[översättning]]>>=
+if tecken in KONSONANTER:
+  översättning += tecken + "o" + tecken.lower()
+else:
+  översättning += tecken
+<<konstanter>>=
+KONSONANTER = "bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ"
+VOKALER = "aeiouyåäöAEIOUYÅÄÖ"
+@
+\pause
+\begin{question}
+Varför kollar vi
+[[tecken in KONSONANTER]] istället för
+[[tecken not in VOKALER]], spelar det någon roll?
+\end{question}
+\end{frame}
+
+Ja, det spelar roll.
+Det är fler tecken än konsonanterna som inte är vokaler.
+Om vi kollar om tecknet inte är en vokal så kommer vi att översätta även tecken 
+som inte är bokstäver, exempelvis mellanslag och skiljetecken.
+Exempelvis skulle vi översätta \enquote{Hej, alla!} till \enquote{Hohejoj,o, o 
+alollola!o!}, och det är ju fel.
+
+\begin{frame}[fragile]
+\begin{example}[Översätta mening]
+Vi vill översätta \enquote{Hej, alla!} till rövarspråket.
+\begin{pyblock}
+översättning = till_rövarspråket("Hej, alla!")
+print(översättning)
+\end{pyblock}
+Då får vi utskriften:
+\stdoutpythontex
+\end{example}
+
+\pause
+
+\begin{remark}
+Notera att vi får \enquote{Hohejoj} istället för \enquote{HoHejoj}.
+Det är tack vare \mintinline{python}{tecken + "o" + tecken.lower()}.
+\end{remark}
+\end{frame}
+
+Om vi tittar på funktionen som helhet så ser den nu ut som följer.
+\begin{frame}[fragile]
+\inputminted[firstline=11,lastline=23]{python}{rovarspraket.py}
+\end{frame}
+
+
+\subsection{Översätta från rövarspråket}
+
+Nu ska vi översätta från rövarspråket tillbaka till vanlig text.
+Vi gör på samma sätt som ovan, vi vill ha en funktion som översätter en sträng 
+från rövarspråket.
+
+\begin{frame}[fragile]
+\begin{example}[Hur översättning ska ske]
+  Vi vill ha en funktion som
+  \begin{itemize}
+    \item givet \enquote{hohejoj} returnerar \enquote{hej},
+    \item givet \enquote{bobilol} returnerar \enquote{bil} och
+    \item givet \enquote{bobusoshohålollopoplalalatotsos} returnerar 
+    \enquote{busshållplats}.
+    \item och så vidare.
+  \end{itemize}
+\end{example}
+\end{frame}
+
+Om vi skapar en sådan funktion så kan vi använda den i huvudprogrammet.
+\begin{frame}[fragile]
+<<hjälpfunktioner>>=
+def från_rövarspråket(rövartext):
+  """
+  Översätt `rövartext` från rövarspråket.
+  Returnera översättningen.
+  """
+  <<returnera [[rövartext]] som vanlig text>>
+@
+
+\begin{example}[Använda {[[från_rövarspråket]]}]\label{UseFrom}
+  Om vi kör följande kod:
+  \begin{pyblock}
+översättning = från_rövarspråket("hohejoj")
+print(översättning)
+  \end{pyblock}
+
+  Då får vi utskriften:
+  \stdoutpythontex
+\end{example}
+\end{frame}
+
+Detta definierar funktionen [[från_rövarspråket]] (raden med
+[[def från_rövarspråket]]) som vi sedan kan använda i huvudprogrammet genom att 
+anropa den, raden med [[från_rövarspråket(...)]] i \cref{UseFrom}.
+
+Låt oss nu titta på hur vi åstadkommer själva översättningen.
+\begin{frame}
+\begin{exercise}[Tänk ut algoritmen]
+Vi har rövartexten som en sträng i variabeln [[rövartext]].
+Vi vill ha översättningen i en variabel [[översättning]].
+Hur kan vi åstadkomma detta?
+\end{exercise}
+\end{frame}
+
+Precis som tidigare, börjar vi med att [[översättning]] är en tom sträng.
+Sedan bygger vi upp översättningen allteftersom vi går igenom rövartexten i 
+[[rövartext]] (tecken för tecken).
+Men det är en skillnad:
+varje gång vi hittar en konsonant i rövartexten måste vi kolla efter det 
+efterföljande o:et och konsonanten igen.
+Om vi hittar den matchningen, då ska vi översätta till bara konsonanten.
+\begin{frame}[fragile]
+<<returnera [[rövartext]] som vanlig text>>=
+översättning = ""
+index = 0
+while index < len(rövartext):
+  tecken = rövartext[index]
+  if tecken in KONSONANTER:
+    <<kolla om [[tecken]] ska översättas, lägg till i [[översättning]]>>
+  else:
+    översättning += tecken
+  index += 1
+return översättning
+@
+
+\pause
+\begin{remark}[Skillnad i for-satsen mot tidigare]
+\only<article>{Notera hur for-satsen skiljer sig mot tidigare:}
+\inputminted[firstline=17,lastline=18]{python}{rovarspraket.py}
+\only<article>{Vi återkommer till varför vi gör så här.}
+\end{remark}
+\end{frame}
+
+För att kolla om vi ska översätta konsonanten, så kollar vi om det 
+efterföljande tecknet är ett \enquote{o} och sedan om tecknet efter det är 
+konsonanten igen.
+Men för att göra detta måste vi först kolla så att det finns tillräckligt många 
+tecken för att kolla det.
+\begin{frame}[fragile]
+<<kolla om [[tecken]] ska översättas, lägg till i [[översättning]]>>=
+if index+2 < len(rövartext) and rövartext[index+1] == "o" \
+    and rövartext[index+2] == tecken.lower():
+  översättning += tecken
+  index += 2
+else:
+  översättning += tecken
+@
+
+\pause
+\begin{question}[Varför gör vi så här?]
+Varför behöver vi [[index += 2]]?
+\end{question}
+\end{frame}
+
+Om vi gör en översättning (det är då vi kör [[index += 2]]), då ska vi inte 
+fortsätta med nästa tecken: de två efterföljande tecknen \enquote{hör ju till 
+samma tecken}, vi måste således hoppa över dem också.
+(Anledningen till att vi har [[index += 2]] istället för [[index += 3]] är att 
+vi redan har en [[index += 1]] i slutet av while-satsen.)
+
+Utan detta skulle vi inte få någon översättning: för om vi översätter första 
+bokstaven i \enquote{hoh}, nämligen h; sedan översätter vi o, som inte är en 
+konsonant och således bara skickas till översättningen; till sist tar vi h 
+igen, men detta h har inget efter följande o och h, så det översätts inte, utan 
+går direkt till översättningen.
+Översättningen blir således också \enquote{hoh}.
+
+Det är även på grund av [[index += 2]] som vi använder
+[[while index < len(rövartext)]] istället för [[for tecken in rövartext]].
+Med [[for]]-varianten skulle vi inte kunna hoppa över tecken, utan vi skulle 
+alltid gå igenom alla tecken i rövartexten.
+
+Vi kan även konstatera att denna översättning också kan hantera mellanslag och 
+skiljetecken.
+\begin{frame}[fragile]
+\begin{example}[Översätta mening]
+Vi vill översätta \enquote{Hohejoj, alollola!} från rövarspråket till vanlig 
+text.
+\begin{pyblock}
+översättning = från_rövarspråket("Hohejoj, alollola!")
+print(översättning)
+\end{pyblock}
+Då får vi utskriften:
+\stdoutpythontex
+\end{example}
+\end{frame}
+
+Slutligen ser funktionen i sin helhet ut som följer.
+\begin{frame}[fragile,allowframebreaks]
+\inputminted[firstline=26,lastline=48]{python}{rovarspraket.py}
+\end{frame}
+
+
+\section{Huvudprogrammet}
+
+Nu när vi har funktioner för att översätta till och från rövarspråket, kan vi 
+använda dem i huvudprogrammet.
+
+Det vi vill att huvudprogrammet ska göra är att låta användaren välja om hen 
+vill översätta till eller från rövarspråket.
+\begin{frame}[fragile]
+\begin{example}[Använda huvudprogrammet]
+\only<article>{När vi kör programmet körs huvudprogrammet, vi vill att det ska 
+se ut ungefär såhär:}
+  \begin{minted}{text}
+$ python3 rövarspråket.py
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) t
+Skriv in texten du vill översätta: hej
+Översättning: hohejoj
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) f
+Skriv in texten du vill översätta: hohejoj
+Översättning: hej
+Vill du översätta till eller från rövarspråket
+eller avsluta? (t/f/a) a
+Tack för den här gången, på återseende!
+$
+  \end{minted}
+\end{example}
+\end{frame}
+
+\begin{frame}
+\begin{exercise}[Strukturera huvudprogrammet]
+Hur kan vi strukturera huvudprogrammet för att åstadkomma detta?
+\end{exercise}
+\end{frame}
+
+Vi kan strukturera huvudprogrammet såhär.
+Då vi vill att programmet repeterar så länge användaren inte väljer avsluta så 
+är det lämpligast att använda en while-sats.
+Sedan kollar vi vilket val användaren gjort och anropar rätt funktion.
+\begin{frame}[fragile]
+<<huvudprogrammet>>=
+while (val := input(MENYVAL)) != "a":
+  if val == "t":
+    <<översätt till rövarspråket>>
+  elif val == "f":
+    <<översätt från rövarspråket>>
+  else:
+    <<hantera felaktiga val>>
+<<konstanter>>=
+MENYVAL = "Vill du översätta till eller från rövarspråket" \
+    "eller avsluta? (t/f/a) "
+@
+\end{frame}
+
+Det som händer i koden ovan är att vi läser in ett val från användaren 
+([[input(MENYVAL)]]) och sparar det i variabeln [[val]] (genom [[val := ...]]).
+När det är gjort kollar vi om användaren valde att avsluta, om så är fallet kör 
+vi inget av det som står i while-satsen.
+Om användaren valde något annat än \enquote{a}, så kör vi raderna i 
+while-satsen.
+
+I while-satsen kollar vi sedan vilket val användaren gjort och anropar rätt 
+funktion.
+Om användaren valt något annat än \enquote{t} eller \enquote{f}, så hanterar vi 
+det som ett felaktigt val.
+Vi behöver inte kolla efter \enquote{a} i while-satsen, eftersom vi redan gjort 
+det i villkoret för while-satsen.
+
+För varje val är det bara att anropa rätt funktion, precis som vi gjorde i 
+\cref{UseTo} och \cref{UseFrom}.
+\begin{frame}[fragile]
+<<översätt till rövarspråket>>=
+text = input("Skriv in texten du vill översätta: ")
+print("Översättning:", till_rövarspråket(text))
+<<översätt från rövarspråket>>=
+text = input("Skriv in texten du vill översätta: ")
+print("Översättning:", från_rövarspråket(text))
+<<hantera felaktiga val>>=
+print("Felaktigt val, försök igen.")
+@
+\end{frame}
+
+Om vi tittar på koden för huvudprogrammet i sin helhet så ser den ut som 
+följer.
+\begin{frame}[fragile,allowframebreaks]
+\inputminted[firstline=51,lastline=64]{python}{rovarspraket.py}
+\end{frame}
+
+
+\section{Koden i helhet}
+
+Slutligen, låt oss titta på koden för hela modulen i sin helhet.
+\begin{frame}[allowframebreaks,fragile]
+\inputminted{python}{rovarspraket.py}
+\end{frame}
+
+
+\section{Experimentera vidare}
+
+Nu när vi har skapat programmet kan vi experimentera vidare.
+\begin{frame}[fragile]
+\begin{exercise}
+  Vad händer om vi översätter en text som innehåller siffror?
+\end{exercise}
+\begin{onlyenv}<article>
+  Detta är inget problem, det hanteras på samma sätt som när vi hade med 
+  skiljetecken och mellanslag.
+\end{onlyenv}
+
+\begin{exercise}
+  Vad händer om vi översätter en text som redan är på rövarspråket?
+\end{exercise}
+\begin{onlyenv}<article>
+  Vi kan testa detta.
+  \begin{pyblock}
+en_översättning = till_rövarspråket("hej")
+print(f"{en_översättning=}")
+två_översättningar = till_rövarspråket(en_översättning)
+print(f"{två_översättningar=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+
+  Låt oss nu översätta tillbaka.
+  \begin{pyblock}
+en_tillbaka = från_rövarspråket(två_översättningar)
+print(f"{en_tillbaka=}")
+två_tillbaka = från_rövarspråket(en_tillbaka)
+print(f"{två_tillbaka=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+\end{onlyenv}
+
+\begin{exercise}
+  Vad händer om vi översätter en vanlig text (som inte är på rövarspråket) från 
+  rövarspråket till vanlig text?
+\end{exercise}
+\begin{onlyenv}<article>
+  Vi kan testa detta.
+  \begin{pyblock}
+en_tillbaka = från_rövarspråket("hej")
+print(f"{en_tillbaka=}")
+  \end{pyblock}
+  Detta ger utmatningen:
+  \stdoutpythontex[verbatim]
+\end{onlyenv}
+\end{frame}
+
+Finns det andra saker vi kan undersöka?
+
+\begin{frame}[allowframebreaks]
+  \printbibliography
+\end{frame}
+
