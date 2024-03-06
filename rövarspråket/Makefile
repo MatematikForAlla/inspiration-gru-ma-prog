@@ -2,7 +2,6 @@
 all: slides.pdf notes.pdf
 
 LATEXFLAGS+=	-shell-escape
-NOWEAVEFLAGS.tex=	-n -delay -t2
 
 SRC+=	rövarspråket.tex
 SRC+=	abstract.tex
