@@ -2,7 +2,10 @@
   Rövarspråket
 }
 \author{%
-  Daniel Bosk
+  Daniel Bosk\thanks{%
+    Detta verk är licensierat under Creative Commons Erkännande-DelaLika 4.0 
+    Internationell Licens.
+  }
 }
 \institute{%
   KTH EECS
