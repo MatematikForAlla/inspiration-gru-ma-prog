@@ -1,0 +1,88 @@
+\title{%
+  Krypto
+}
+\author{%
+  Daniel Bosk\thanks{%
+    Detta verk är licensierat under Creative Commons Erkännande-DelaLika 4.0 
+    Internationell Licens.
+  }
+}
+\institute{%
+  KTH EECS
+}
+
+@
+
+\mode*
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
+\clearpage
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\clearpage
+
+\section{Översikt}
+
+Vi vill skriva ett program ([[<<krypto.py>>]]) som \dots
+
+
+\subsection{Programstruktur}
+
+Vi vill ha följande struktur på koden.
+\begin{frame}[fragile]
+<<krypto.py>>=
+"""
+<<kort beskrivning av denna modul>>
+"""
+
+<<konstanter>>
+<<hjälpfunktioner>>
+
+def huvudfunktion():
+  """
+  <<kort beskrivning av huvudprogrammet>>
+  """
+  <<huvudprogrammet>>
+@
+\end{frame}
+
+För att kunna använda denna som en modul vill vi även ha med följande:
+<<krypto.py>>=
+if __name__ == '__main__':
+  huvudfunktion()
+@
+
+Fördelen med denna struktur är att vi kan återanvända hjälpfunktionerna i andra 
+program.
+Funktionen \texttt{huvudfunktion} kommer då bara att köras om vi kör programmet 
+som huvudprogram, dvs kör [[python3 krypto.py]].
+Den kommer inte att köras om vi importerar programmet i ett annat program, dvs 
+\mintinline{python}{import krypto}.
+
+
+\subsection{Modulen och huvudprogrammet}
+
+Låt oss nu beskriva modulen och huvudprogrammet, så att vi kan se vad som 
+skiljer.
+\begin{frame}[fragile]
+<<kort beskrivning av denna modul>>=
+...
+<<kort beskrivning av huvudprogrammet>>=
+...
+@
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+  \printbibliography
+\end{frame}
+

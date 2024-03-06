@@ -1,0 +1,29 @@
+\documentclass{article}
+
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+
+\input{preamble.tex}
+
+\usepackage[noamsthm,notheorems]{beamerarticle}
+\setjobnamebeamerversion{slides}
+
+%\usepackage{authblk}
+%\let\institute\affil
+
+\declaretheorem[numbered=unless unique,style=example,
+  name=Exempel,refname=exempel,Refname=Exempel]{example}
+%\declaretheorem[style=definition,numbered=unless unique,
+%  name=Example,refname={example,examples}]{example}
+\declaretheorem[numbered=unless unique,style=remark,
+  name=Anmärkning,refname=anmärkning,Refname=Anmärkning]{remark}
+\declaretheorem[numbered=unless unique,style=exercise,
+  name=Övning,refname=övning,Refname=Övning]{exercise}
+\declaretheorem[numbered=unless unique,style=exercise,
+  name=Fråga,refname=fråga,Refname=Fråga]{question}
+\declaretheorem[numbered=no,style=solution,
+  name=Lösning,refname=lösning,Refname=Lösning]{solution}
+
+\begin{document}
+\input{rövarspråket.tex}
+\end{document}
