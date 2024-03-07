@@ -1,0 +1,494 @@
+\title{%
+  Frågesport
+}
+\author{%
+  Daniel Bosk\thanks{%
+    Detta verk är licensierat under Creative Commons Erkännande-DelaLika 4.0 
+    Internationell Licens.
+  }
+}
+\institute{%
+  KTH EECS
+}
+
+@
+
+\mode*
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{abstract}
+  \input{abstract.tex}
+\end{abstract}
+\clearpage
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+\clearpage
+
+\section{Översikt}
+
+Vi vill skriva ett program ([[<<frågesport.py>>]]) som låter användaren spela 
+frågesport.
+\theorynote{%
+  Variationsteorin säger att vi ska börja med helheten,
+  sedan med hjälp av variationsmönter plocka isär helheten i mindre delar,
+  för att till sist sätta ihop delarna till helheten 
+  igen~\cite{NecessaryConditionsOfLearning}.
+
+  Helheten i vårt fall är en utskrift från en exempelkörning av vårt tilltänkta 
+  program.
+  Det som ges i \cref{ExampleRun}.
+}
+\begin{frame}[fragile]
+\begin{example}[Använda programmet]\label{ExampleRun}
+  \only<article>{Om vi kör programmet ska det se ut ungefär såhär:}
+  \begin{minted}{text}
+$ python3 frågesport.py
+Vad heter huvudstaden i Sverige?
+Svar: Stockholm
+Det var rätt svar!
+
+Vad heter huvudstaden i Norge?
+Svar: Helsingfors
+Det var fel svar! Rätt svar är Oslo.
+
+Hur mycket är 1432 + 234?
+Svar: 1666
+Det var rätt svar!
+  \end{minted}
+\end{example}
+\end{frame}
+
+
+\subsection{Programstruktur}
+
+Vi vill ha följande struktur på koden.
+\begin{frame}[fragile]
+<<frågesport.py>>=
+"""
+<<kort beskrivning av denna modul>>
+"""
+
+<<konstanter>>
+<<hjälpfunktioner>>
+
+def huvudfunktion():
+  """
+  <<kort beskrivning av huvudprogrammet>>
+  """
+  <<huvudprogrammet>>
+@
+\end{frame}
+
+Vi behöver även köra igång huvudfunktionen när vi kör programmet (dvs inte 
+använder det genom att importera det i ett annat program).
+<<frågesport.py>>=
+if __name__ == '__main__':
+  huvudfunktion()
+@
+
+Fördelen med denna struktur är att vi kan återanvända hjälpfunktionerna i andra 
+program.
+Funktionen \texttt{huvudfunktion} kommer då bara att köras om vi kör programmet 
+som huvudprogram, dvs kör [[python3 frågesport.py]].
+Den kommer inte att köras om vi importerar programmet i ett annat program, dvs 
+\mintinline{python}{import frågesport}.
+
+\begin{pycode}
+from fragesport import *
+\end{pycode}
+
+
+\subsection{Modulen och huvudprogrammet}
+
+Låt oss nu beskriva modulen och huvudprogrammet, så att vi kan se vad som 
+skiljer.
+\begin{frame}[fragile]
+<<kort beskrivning av denna modul>>=
+Denna modul innehåller funktioner som gör det
+enkelt att bygga frågesportprogram.
+<<kort beskrivning av huvudprogrammet>>=
+Huvudprogrammet låter användaren spela ett
+frågesportspel som använder modulens funktioner.
+@
+\end{frame}
+
+
+\section[Ställa frågor]{Ställa frågor med \emph{ett} rätt svar}%
+\label{AskingQuestions}
+
+Vi will nu börja titta på hur vi kan ställa frågor med \emph{ett} rätt svar.
+\begin{frame}[fragile]
+\begin{example}[Frågor med ett rätt svar]
+  \only<article>{Vi har frågan från exemplet ovan (\cref{ExampleRun}.}
+  \begin{description}
+    \item[Fråga] Vad heter huvudstaden i Sverige?
+    \item[Rätt svar] Stockholm
+  \end{description}
+\end{example}
+\begin{onlyenv}<1>
+\only<article>{\theorynote{%
+  Vi vill här att eleverna ska försöka att tänka ut de individuella stegen som 
+  krävs algoritmiskt för att åstadkomma utmatningen i \cref{ExampleRun}.
+  De ska inte tänka i programkod, utan i naturligt språk men med detaljerade 
+  steg hur man behöver gå tillväga.
+
+  Detta har en bra effekt på lärandet~\cite{Szekely1950}.
+  Detta ger dem även möjlighet till variationsmönstret 
+  kontrast~\cite[jmf][]{NecessaryConditionsOfLearning}.
+}}
+\begin{exercise}[Designa algoritmen]\label{DesignAskingQuestion}
+Vad behöver vi göra för att ställa en sådan fråga?
+På samma sätt som i exemplet ovan\only<article>{
+  (\cref{ExampleRun})%
+}.
+\end{exercise}
+\end{onlyenv}
+\only<article>{\theorynote{%
+  [[<<ställ frågan [[fråga]] med svaret [[rätt_svar]]>>]]
+  är vad som ger kontrasten, nämnd ovan.
+  Här visar vi dem de individuella stegen, i kontrast till vad de tänkte själva 
+  i \cref{DesignAskingQuestion}.
+
+  De får även en kontrast i hur deras algoritmiska beskrivning formuleras i 
+  Python.
+  Detta tack vare att pythonkod blir väldigt likt naturlig 
+  \enquote{svengelska}.
+
+  Detta bidrar till lärandemålen:
+  \begin{itemize}
+    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
+    korrekt, förklara vad koden gör; samt
+    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
+    en detaljnivå lämpad för programmering.
+  \end{itemize}
+}}
+\begin{onlyenv}<2>
+<<ställ frågan [[fråga]] med svaret [[rätt_svar]]>>=
+print(fråga)
+användarens_svar = input("Svar: ")
+
+if användarens_svar == rätt_svar:
+  <<hantera rätt svar>>
+else:
+  <<hantera fel svar>>
+@
+\end{onlyenv}
+\end{frame}
+
+Om vi provkör koden så ser vi att det ser ut precis som i \cref{ExampleRun}.
+Alla frågor av den här typen kommer att se ut precis såhär.
+Det enda som skiljer frågan om Norges huvudstad från frågan om Sveriges (i 
+\cref{ExampleRun}) är vad [[fråga]] och [[rätt_svar]] är.
+Då är det lämpligt att återanvända denna kod i en funktion som vi kan använda 
+flera gånger.
+\begin{frame}[fragile]
+<<hjälpfunktioner>>=
+def ställ_fråga(fråga, rätt_svar):
+  """
+  Ställer en fråga och rättar användarens svar.
+  Returnerar sant (True) om användaren svarade rätt,
+  annars falskt (False).
+  """
+  <<ställ frågan [[fråga]] med svaret [[rätt_svar]]>>
+@ \only<article>{%
+Detta säger också vad vi ska göra för att [[<<hantera rätt svar>>]] och 
+[[<<hantera fel svar>>]].%
+}
+\begin{onlyenv}<1>
+<<hantera rätt svar>>=
+print("Det var rätt svar!")
+return True
+<<hantera fel svar>>=
+print(f"Det var fel svar! Rätt svar är {rätt_svar}.")
+return False
+@
+\end{onlyenv}
+\begin{onlyenv}<2>
+\only<article>{\theorynote{%
+  Om eleverna aldrig har programmerat tidigare, då kommer 
+  \cref{ExerciseUseFunction} att vara väldigt svår att få rätt.
+  Eventuellt att de kan ge ett svar baserat på deras kunskaper om funktioner i 
+  matematiken.
+
+  \cref{ExerciseUseFunction} låter dem dock försöka angripa problemet först, 
+  vilket är bättre för lärandet~\cite{Szekely1950}.
+  Övningen kan också användas som en slags \enquote{pre-test} för att se hur 
+  mycket de kan redan innan vi har gått igenom 
+  det~\cite[kap.~7]{NecessaryConditionsOfLearning}.
+}}
+\begin{exercise}[Använda funktionen]\label{ExerciseUseFunction}
+  Hur tror ni att vi gör för att använda denna funktion?
+\end{exercise}
+\end{onlyenv}
+\end{frame}
+
+\subsection{Använda funktionen}\label{UsingTheFunction}
+
+Om vi nu vill använda funktionen kan vi göra såhär.
+\theorynote{%
+  Notera variationen mellan exemplen i detta avsnitt
+  (\cref{ExampleStockholm,ExampleMaths,ExampleMathsWrong}).
+  Vi varierar frågorna och svaren för att visa att funktionen kan användas för 
+  olika typer av frågor.
+  Båda frågorna har de sett tidigare i \cref{ExampleRun}.
+  Eleverna kan då lära sig hur de kan variera argumenten till funktionen för 
+  att åstadkomma olika frågor.
+
+  Detta fokuserar på lärandemålet
+  \begin{itemize}
+    \item använda existerande programkod som block i egna program, dvs 
+    \enquote{remixa} existerande program till nya.
+  \end{itemize}
+}
+\begin{frame}[fragile]
+\begin{example}[Använda funktionen]\label{ExampleStockholm}
+\only<article>{%
+Vi har följande kod:
+}\only<presentation>{%
+Kod:
+}
+  \begin{minted}{python}
+fick_rätt = ställ_fråga("Vad heter huvudstaden i Sverige?",
+                        "Stockholm")
+  \end{minted}
+\only<article>{%
+Nu kommer [[fick_rätt]] att ha värdet [[True]] om användaren svarade rätt, 
+annars [[False]].
+Utmatningen blir följande:
+}\only<presentation>{%
+Utmatning:
+}
+  \begin{minted}{text}
+Vad heter huvudstaden i Sverige?
+Svar: Stockholm
+Det var rätt svar!
+  \end{minted}
+\end{example}
+\end{frame}
+
+Vi kan även ställa andra typer av frågor, huvudsaken är att de har rätt svar.
+
+\only<article>{\theorynote{%
+  I \cref{ExerciseChangeQuestion} ger vi eleverna möjlighet att variera de 
+  relevanta delarna av exemplet för att åstadkomma den förändring vi är ute 
+  efter, nämligen att ändra frågan till en av de andra frågorna.
+
+  Om de gör fel kommer vår lösning att ge dem den nödvändiga kontrasten för att 
+  se vad som är det relevanta att ändra.
+  Detta betyder att vi endast ska \emph{ändra minsta möjliga} för att 
+  åstadkomma den förändring vi är ute 
+  efter~\cite{NecessaryConditionsOfLearning}.
+  Dvs vi vill bara ändra frågan och svaret, inte något annat; exempelvis, 
+  variabelnamnen måste vara desamma.
+
+  Detta blir också ett slags \enquote{post-test} för att testa hur väl de har 
+  bemästrat detta~\cite[kap.~7]{NecessaryConditionsOfLearning}.
+}}
+\begin{frame}[fragile]
+\begin{exercise}[Använda funktionen]\label{ExerciseChangeQuestion}
+  Vad ska vi ändra för att ställa de andra frågorna i exempelkörningen 
+  ovan\only<article>{ (\cref{ExampleRun})}?
+  (Dvs frågan om Norges huvudstad och frågan om 1432+234.)
+\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{example}[Använda funktionen]\label{ExampleMaths}
+  \only<article>{%
+    Vi har följande kod:
+  }\only<presentation>{%
+    Kod:
+  }
+  \begin{minted}{python}
+fick_rätt = ställ_fråga("Hur mycket är 1432 + 234?",
+                        "1666")
+  \end{minted}
+  \only<article>{%
+    Nu kommer [[fick_rätt]] att ha värdet [[True]] om användaren svarade rätt, 
+    annars [[False]].
+    Utmatningen blir följande:
+  }\only<presentation>{%
+    Utmatning:
+  }
+  \begin{minted}{text}
+Hur mycket är 1432 + 234?
+Svar: 1666
+Det var rätt svar!
+  \end{minted}
+  \only<article>{%
+    Här kommer [[fick_rätt]] att ha värdet [[True]] eftersom att användaren 
+    svarade rätt.
+  }
+\end{example}
+\end{frame}
+
+Men vi kan även svara fel.
+\theorynote{%
+  Alla exempel vi har haft hittills (\cref{ExampleStockholm,ExampleMaths}) har 
+  varit där användaren ger rätt svar.
+  Det är därför viktigt att vi även visar vad som händer när användaren svarar 
+  något annat än rätta svaret.
+  Notera att vi inte varierar något annat än användarens inmatade svar mellan 
+  \cref{ExampleMaths,ExampleMathsWrong}.
+  Detta är en viktig detalj.
+}
+\begin{frame}[fragile]
+\begin{example}[Använda funktionen]\label{ExampleMathsWrong}
+  Samma kod som ovan\only<article>{
+    (\cref{ExampleMaths})%
+  }, men med annan inmatning:
+  \begin{minted}{text}
+Hur mycket är 1432 + 234?
+Svar: 1667
+Det var fel svar! Rätt svar är 1666.
+  \end{minted}
+  \only<article>{%
+    Här kommer [[fick_rätt]] att ha värdet [[False]] eftersom att användaren 
+    svarade fel.
+  }
+\end{example}
+\end{frame}
+
+\subsection{Ett möjligt huvudprogram}\label{ConstructingAMainProgram}
+
+Vi skulle nu kunna sätta ihop ett huvudprogram som ger motsvarande utmatning 
+som i \cref{ExampleRun}.
+\theorynote{%
+  Här visar vi eleverna hur de kan sätta ihop de olika delarna till helheten.
+  Vi kan nu provköra huvudprogrammet i
+  [[<<huvudprogram för \only<article>{\cref{ExampleRun}}\only<presentation>{exempelkörningen}>>]]
+  för variera användarens möjliga inmatningar.
+
+  Även här fokuserar vi på lärandemålet
+  \begin{itemize}
+    \item använda existerande programkod som block i egna program, dvs 
+    \enquote{remixa} existerande program till nya.
+  \end{itemize}
+}
+\begin{frame}[fragile]
+<<huvudprogram för \only<article>{\cref{ExampleRun}}\only<presentation>{exempelkörningen}>>=
+fick_rätt = ställ_fråga("Vad heter huvudstaden i Sverige?",
+                        "Stockholm")
+fick_rätt = ställ_fråga("Vad heter huvudstaden i Norge?",
+                        "Oslo")
+fick_rätt = ställ_fråga("Hur mycket är 1432 + 234?",
+                        "1666")
+@
+\end{frame}
+
+\theorynote{%
+  Här låter vi eleverna variera alla delar som de har lärt sig är relevanta att 
+  ändra på.
+  Med det har vi gått igenom de olika variationsteoretiska stegen: kontrast, 
+  generalisering och, nu, fusion---men bara för användandet av funktionen 
+  [[ställ_fråga]].
+  Dvs relaterat till lärandemålet
+  \begin{itemize}
+    \item använda existerande programkod som block i egna program, dvs 
+    \enquote{remixa} existerande program till nya.
+  \end{itemize}
+
+  För att täcka de andra lärandemålen behöver vi mer variation i algoritmiska 
+  konstruktioner och motsvarande översättningar till Python.
+  Detta hamnar i fokus när vi går över till \cref{QuestionBanks,MathQuestions}.
+
+  Det finns även andra aspekter som vi inte har tagit upp, exempelvis ordningen 
+  på argumenten.
+  Detta är dock inte relevant för lärandemålen vi har satt upp, då det handlar 
+  om att använda existerande programkod som block i egna program istället för 
+  att producera egen kod.
+  Men vi kan göra eleverna uppmärksamma på denna aspekt genom 
+  \cref{ExerciseOrderOfArguments}.
+  Det kan vara användbart då studenterna kan göra misstag om de skriver av 
+  istället för att modifiera en kopia.
+}
+\begin{frame}[fragile]
+\begin{exercise}[Konstruera ett annat huvudprogram]\label{ExerciseAnotherMain}
+  Konstruera ett annat huvudprogram som ställer andra frågor.
+  Använd funktionen
+  \begin{center}[[ställ_fråga]]\end{center}
+  för att ställa frågorna och rätta svaren.
+\end{exercise}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{exercise}[Ordningen på argumenten]\label{ExerciseOrderOfArguments}
+  Vad händer om vi byter ordningen på argumenten till [[ställ_fråga]]?
+\end{exercise}
+\end{frame}
+
+
+\section[Frågebanker]{Frågebanker för frågor med ett rätt svar}%
+\label{QuestionBanks}
+
+Nu vill vi titta på hur vi kan använda frågebanker.
+Tanken är då att vi bara lägger till frågor i frågebankerna utan att behöver 
+ändra koden---till skillnad från tidigare, där vi behövde lägga till ny kod för 
+varje fråga.
+\theorynote{%
+  \Cref{QuestionBanks,MathQuestions,MultipleChoice} är alla variationer på den 
+  ursprungliga algoritmen i \cref{AskingQuestions}.
+  Detta krävs för att vi ska kunna åstadkomma tillräckligt med variation för 
+  att täcka lärandemålen
+  \begin{itemize}
+    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
+    korrekt, förklara vad koden gör; samt
+    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
+    en detaljnivå lämpad för programmering.
+  \end{itemize}
+
+  Detta kommer naturligtvis att introducera nya \enquote{kodblock} som vi måste 
+  introducera lämplig variation för för att eleverna ska kunna använda dem 
+  korrekt.
+  Dvs vi behöver göra för de nya konstruktionerna samma typ av 
+  variationsmönster som vi gjorde i 
+  \cref{UsingTheFunction,ConstructingAMainProgram}.
+  På så vis behöver vi inte gå igenom saker som datatyper, även om frågebanker 
+  handlar om just det.
+  Målet är att eleverna lär sig att använda konstruktionen som ett 
+  \enquote{kodblock} som de kan modifiera för att åstadkomma andra saker.
+  Målet är inte att de ska lära sig använda olika datatyper, målet är att de 
+  ska lära sig modifiera \enquote{kodblocket} (som råkar innehålla datatypen 
+  [[dict]], exempelvis).
+}
+
+\dots
+
+
+\section{Matematiska frågor}\label{MathQuestions}
+
+Vi har tidigare sett frågan om \(1432+234\) 
+  (\cref{ExampleRun,ExampleMaths,ExampleMathsWrong}).
+Då var vi tvungna att skriva in svaret i koden.
+Ville vi ha andra tal var vi tvungna att lägga till dem.
+Detta känns dock kontraproduktivt då vi kör programmet på en extremt kraftfull 
+\enquote{miniräknare}.
+Det vi vill göra här är att generera \enquote{oändligt} med frågor och räkna ut 
+svaren automatiskt, så att vi inte behöver skapa varje fråga och svar manuellt 
+i koden.
+
+\dots
+
+
+\section[Flervalsfrågor]{Frågor med flera svarsalternativ}%
+\label{MultipleChoice}
+
+Tidigare har vi haft frågor med ett rätt svar.
+Ett problem med dem är att användaren måste skriva exakt rätt för att få rätt, 
+minsta avvikelse i stavning eller liknande ger fel.
+På så vis är det enklare om användaren kan få flera svarsalternativ att välja 
+mellan.
+
+\dots
+
+
+\begin{frame}[allowframebreaks]
+  \printbibliography
+\end{frame}
+
