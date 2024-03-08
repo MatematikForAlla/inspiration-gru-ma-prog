@@ -228,6 +228,11 @@ return False
 \end{onlyenv}
 \end{frame}
 
+Funktionen som helhet ser ut såhär.
+\begin{frame}[fragile]
+\inputminted[firstline=7,lastline=21]{python}{fragesport.py}
+\end{frame}
+
 \subsection{Använda funktionen}\label{UsingTheFunction}
 
 Om vi nu vill använda funktionen kan vi göra såhär.
