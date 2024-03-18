@@ -1,0 +1,92 @@
+\documentclass[a4paper,10pt,article,oneside,oldfontcommands]{memoir}
+%%% Tufte %%%
+\usepackage{marginfix}
+%\setlength{\evensidemargin}{\oddsidemargin}
+\marginparmargin{outer}
+\setlrmarginsandblock{2.5cm}{8cm}{*}
+
+\footnotesinmargin
+
+\usepackage{ragged2e}
+\renewcommand{\sidefootform}{\RaggedRight}
+\renewcommand{\foottextfont}{\footnotesize\RaggedRight}
+
+\setmpjustification{\RaggedRight}{\RaggedRight}
+
+% margin figure and caption typeset ragged against text block
+\setfloatadjustment{marginfigure}{\mpjustification}
+\setmarginfloatcaptionadjustment{figure}{\captionstyle{\mpjustification}}
+
+% From https://tex.stackexchange.com/a/324757/17418
+% Palatino for main text and math
+\usepackage[osf,sc]{mathpazo}
+
+% Helvetica for sans serif
+% (scaled to match size of Palatino)
+\usepackage[scaled=0.90]{helvet}
+
+% Bera Mono for monospaced
+% (scaled to match size of Palatino)
+\usepackage[scaled=0.85]{beramono}
+
+\setlxvchars\setxlvchars
+\checkandfixthelayout
+
+\nouppercaseheads
+%%% end tufte %%%
+\let\subsubsection\subsection
+\let\subsection\section
+\let\section\chapter
+
+\input{preamble.tex}
+\noweboptions{longxref,breakcode}
+
+\usepackage[noamsthm,notheorems]{beamerarticle}
+\setjobnamebeamerversion{slides}
+
+%\usepackage{authblk}
+%\let\institute\affil
+
+\declaretheorem[
+  numbered=unless unique,style=example,
+  name=Exempel,
+  refname={exempel,exemplen},
+  Refname={Exempel,Exemplen}
+]{example}
+\declaretheorem[
+  numbered=unless unique,style=remark,
+  name=Anmärkning,
+  refname={anmärkning,anmärkningarna},
+  Refname={Anmärkning,Anmärkningarna}
+]{remark}
+\declaretheorem[
+  numbered=unless unique,style=exercise,
+  name=Övning,
+  refname={övning,övningarna},
+  Refname={Övning,Övningarna}
+]{exercise}
+\declaretheorem[
+  numbered=unless unique,style=exercise,
+  name=Fråga,
+  refname={fråga,frågorna},
+  Refname={Fråga,Frågorna}
+]{question}
+\declaretheorem[
+  numbered=no,style=solution,
+  name=Lösning,
+  refname={lösning,lösningarna},
+  Refname={Lösning,Lösningarna}
+]{solution}
+
+% Gives us indentation in the margin notes.
+% From https://tex.stackexchange.com/a/257171
+\makeatletter
+\newcommand{\theorynote}[1]{%
+  \strictpagecheck\marginpar{\setlength{\parindent}{1.0em}\footnotesize
+  \@afterindentfalse\@afterheading \emph{Lärandeteoretisk anteckning:} #1}%
+}
+\makeatother
+
+\begin{document}
+\input{frågesport.tex}
+\end{document}
