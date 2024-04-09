@@ -2,14 +2,17 @@
 all: slides.pdf notes.pdf
 
 LATEXFLAGS+=	-shell-escape
+USE_PYTHONTEX=true
 
 SRC+=	frågesport.tex
 SRC+=	abstract.tex
 SRC+=	preamble.tex
 SRC+=	fragesport.py
 
-notes.pdf: notes.tex ${SRC}
-slides.pdf: slides.tex ${SRC}
+DEPENDS+=	didactic.sty
+
+notes.pdf: notes.tex ${SRC} ${DEPENDS}
+slides.pdf: slides.tex ${SRC} ${DEPENDS}
 
 frågesport.tex: frågesport.nw
 
@@ -34,3 +37,7 @@ clean:
 INCLUDE_MAKEFILES=../makefiles
 include ${INCLUDE_MAKEFILES}/tex.mk
 include ${INCLUDE_MAKEFILES}/noweb.mk
+INCLUDE_BIBEDU=../bibedu
+include ${INCLUDE_BIBEDU}/bibedu.mk
+INCLUDE_DIDACTIC=../didactic
+include ${INCLUDE_DIDACTIC}/didactic.mk
