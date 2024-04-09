@@ -34,7 +34,7 @@
 
 Vi vill skriva ett program ([[<<frågesport.py>>]]) som låter användaren spela 
 frågesport.
-\theorynote{%
+\ltnote{%
   Variationsteorin säger att vi ska börja med helheten,
   sedan med hjälp av variationsmönter plocka isär helheten i mindre delar,
   för att till sist sätta ihop delarna till helheten 
@@ -149,7 +149,7 @@ På samma sätt som i exemplet ovan\only<article>{
 }.
 \end{exercise}
 \end{onlyenv}
-\only<article>{\theorynote{%
+\only<article>{\ltnote{%
   [[<<ställ frågan [[fråga]] med svaret [[rätt_svar]]>>]]
   är vad som ger kontrasten, nämnd ovan.
   Här visar vi dem de individuella stegen, i kontrast till vad de tänkte själva 
@@ -236,7 +236,7 @@ Funktionen som helhet ser ut såhär.
 \subsection{Använda funktionen}\label{UsingTheFunction}
 
 Om vi nu vill använda funktionen kan vi göra såhär.
-\theorynote{%
+\ltnote{%
   Notera variationen mellan exemplen i detta avsnitt
   (\cref{ExampleStockholm,ExampleMaths,ExampleMathsWrong}).
   Vi varierar frågorna och svaren för att visa att funktionen kan användas för 
@@ -279,7 +279,7 @@ Det var rätt svar!
 
 Vi kan även ställa andra typer av frågor, huvudsaken är att de har rätt svar.
 
-\only<article>{\theorynote{%
+\only<article>{\ltnote{%
   I \cref{ExerciseChangeQuestion} ger vi eleverna möjlighet att variera de 
   relevanta delarna av exemplet för att åstadkomma den förändring vi är ute 
   efter, nämligen att ändra frågan till en av de andra frågorna.
@@ -326,15 +326,11 @@ Hur mycket är 1432 + 234?
 Svar: 1666
 Det var rätt svar!
   \end{minted}
-  \only<article>{%
-    Här kommer [[fick_rätt]] att ha värdet [[True]] eftersom att användaren 
-    svarade rätt.
-  }
 \end{example}
 \end{frame}
 
 Men vi kan även svara fel.
-\theorynote{%
+\ltnote{%
   Alla exempel vi har haft hittills (\cref{ExampleStockholm,ExampleMaths}) har 
   varit där användaren ger rätt svar.
   Det är därför viktigt att vi även visar vad som händer när användaren svarar 
@@ -364,11 +360,11 @@ Det var fel svar! Rätt svar är 1666.
 
 Vi skulle nu kunna sätta ihop ett huvudprogram som ger motsvarande utmatning 
 som i \cref{ExampleRun}.
-\theorynote{%
+\ltnote{%
   Här visar vi eleverna hur de kan sätta ihop de olika delarna till helheten.
   Vi kan nu provköra huvudprogrammet i
-  [[<<huvudprogram för \only<article>{\cref{ExampleRun}}\only<presentation>{exempelkörningen}>>]]
-  för variera användarens möjliga inmatningar.
+  [[<<huvudprogrammet>>]]
+  för att variera användarens möjliga inmatningar.
 
   Även här fokuserar vi på lärandemålet
   \begin{itemize}
@@ -377,17 +373,22 @@ som i \cref{ExampleRun}.
   \end{itemize}
 }
 \begin{frame}[fragile]
-<<huvudprogram för \only<article>{\cref{ExampleRun}}\only<presentation>{exempelkörningen}>>=
-fick_rätt = ställ_fråga("Vad heter huvudstaden i Sverige?",
-                        "Stockholm")
-fick_rätt = ställ_fråga("Vad heter huvudstaden i Norge?",
-                        "Oslo")
-fick_rätt = ställ_fråga("Hur mycket är 1432 + 234?",
-                        "1666")
+<<huvudprogrammet>>=
+ställ_fråga("Vad heter huvudstaden i Sverige?",
+            "Stockholm")
+ställ_fråga("Vad heter huvudstaden i Norge?",
+            "Oslo")
+ställ_fråga("Hur mycket är 1432 + 234?",
+            "1666")
 @
 \end{frame}
 
-\theorynote{%
+Huvudprogrammet som helhet blir då följande:
+\begin{frame}[fragile,allowframebreaks]
+\inputminted[firstline=22,lastline=29]{python}{fragesport.py}
+\end{frame}
+
+\ltnote{%
   Här låter vi eleverna variera alla delar som de har lärt sig är relevanta att 
   ändra på.
   Med det har vi gått igenom de olika variationsteoretiska stegen: kontrast, 
@@ -436,7 +437,7 @@ Nu vill vi titta på hur vi kan använda frågebanker.
 Tanken är då att vi bara lägger till frågor i frågebankerna utan att behöver 
 ändra koden---till skillnad från tidigare, där vi behövde lägga till ny kod för 
 varje fråga.
-\theorynote{%
+\ltnote{%
   \Cref{QuestionBanks,MathQuestions,MultipleChoice} är alla variationer på den 
   ursprungliga algoritmen i \cref{AskingQuestions}.
   Detta krävs för att vi ska kunna åstadkomma tillräckligt med variation för 
