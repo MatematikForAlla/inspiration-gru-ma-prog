@@ -43,6 +43,17 @@ frågesport.
   Helheten i vårt fall är en utskrift från en exempelkörning av vårt tilltänkta 
   program.
   Det som ges i \cref{ExampleRun}.
+
+  Denna helhet måste nu plockas isär genom variation i de relevanta aspekterna 
+  vi är ute efter, nämligen lärandemålen:
+  \begin{itemize}
+    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
+    korrekt, förklara vad koden gör;
+    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
+    en detaljnivå lämpad för programmering; samt
+    \item använda existerande programkod som block i egna program, dvs 
+    \enquote{remixa} existerande program till nya.
+  \end{itemize}
 }
 \begin{frame}[fragile]
 \begin{example}[Använda programmet]\label{ExampleRun}
@@ -74,7 +85,6 @@ Vi vill ha följande struktur på koden.
 <<kort beskrivning av denna modul>>
 """
 
-<<konstanter>>
 <<hjälpfunktioner>>
 
 def huvudfunktion():
@@ -108,6 +118,9 @@ from fragesport import *
 
 Låt oss nu beskriva modulen och huvudprogrammet, så att vi kan se vad som 
 skiljer.
+\ltnote{%
+  Detta ger upphov till konstrast, vad skiljer modulen från huvudprogrammet?
+}
 \begin{frame}[fragile]
 <<kort beskrivning av denna modul>>=
 Denna modul innehåller funktioner som gör det
@@ -125,22 +138,26 @@ frågesportspel som använder modulens funktioner.
 Vi will nu börja titta på hur vi kan ställa frågor med \emph{ett} rätt svar.
 \begin{frame}[fragile]
 \begin{example}[Frågor med ett rätt svar]
-  \only<article>{Vi har frågan från exemplet ovan (\cref{ExampleRun}.}
+  \only<article>{Vi har frågan från exemplet ovan (\cref{ExampleRun}).}
   \begin{description}
     \item[Fråga] Vad heter huvudstaden i Sverige?
     \item[Rätt svar] Stockholm
   \end{description}
 \end{example}
 \begin{onlyenv}<1>
-\only<article>{\theorynote{%
-  Vi vill här att eleverna ska försöka att tänka ut de individuella stegen som 
-  krävs algoritmiskt för att åstadkomma utmatningen i \cref{ExampleRun}.
+\only<article>{\ltnote{%
+  Vi vill i \cref{DesignAskingQuestion} att eleverna ska försöka att tänka ut 
+  de individuella stegen som krävs algoritmiskt för att åstadkomma utmatningen 
+  i \cref{ExampleRun}.
   De ska inte tänka i programkod, utan i naturligt språk men med detaljerade 
   steg hur man behöver gå tillväga.
 
-  Detta har en bra effekt på lärandet~\cite{Szekely1950}.
+  Att utföra denna typ av övning---innan de har lärt sig något om hur man gör 
+  det---har en bra effekt på lärandet~\cite{Szekely1950}.
   Detta ger dem även möjlighet till variationsmönstret 
   kontrast~\cite[jmf][]{NecessaryConditionsOfLearning}.
+  Sedan kan denna övning även utgöra ett 
+  \enquote{pre-test}~\cite[kap.~7]{NecessaryConditionsOfLearning}.
 }}
 \begin{exercise}[Designa algoritmen]\label{DesignAskingQuestion}
 Vad behöver vi göra för att ställa en sådan fråga?
@@ -203,20 +220,18 @@ Detta säger också vad vi ska göra för att [[<<hantera rätt svar>>]] och
 \begin{onlyenv}<1>
 <<hantera rätt svar>>=
 print("Det var rätt svar!")
-return True
 <<hantera fel svar>>=
 print(f"Det var fel svar! Rätt svar är {rätt_svar}.")
-return False
 @
 \end{onlyenv}
 \begin{onlyenv}<2>
-\only<article>{\theorynote{%
+\only<article>{\ltnote{%
   Om eleverna aldrig har programmerat tidigare, då kommer 
   \cref{ExerciseUseFunction} att vara väldigt svår att få rätt.
   Eventuellt att de kan ge ett svar baserat på deras kunskaper om funktioner i 
   matematiken.
 
-  \cref{ExerciseUseFunction} låter dem dock försöka angripa problemet först, 
+  \Cref{ExerciseUseFunction} låter dem dock försöka angripa problemet först, 
   vilket är bättre för lärandet~\cite{Szekely1950}.
   Övningen kan också användas som en slags \enquote{pre-test} för att se hur 
   mycket de kan redan innan vi har gått igenom 
@@ -259,12 +274,10 @@ Vi har följande kod:
 Kod:
 }
   \begin{minted}{python}
-fick_rätt = ställ_fråga("Vad heter huvudstaden i Sverige?",
-                        "Stockholm")
+ställ_fråga("Vad heter huvudstaden i Sverige?",
+            "Stockholm")
   \end{minted}
 \only<article>{%
-Nu kommer [[fick_rätt]] att ha värdet [[True]] om användaren svarade rätt, 
-annars [[False]].
 Utmatningen blir följande:
 }\only<presentation>{%
 Utmatning:
@@ -306,17 +319,18 @@ Vi kan även ställa andra typer av frågor, huvudsaken är att de har rätt sva
 \begin{frame}[fragile]
 \begin{example}[Använda funktionen]\label{ExampleMaths}
   \only<article>{%
-    Vi har följande kod:
+    Vi har följande kod\footnote{%
+      Vi kommer att återkomma till hur vi kan få datorn att räkna i 
+      \cref{MathQuestions}.
+    }:
   }\only<presentation>{%
     Kod:
   }
   \begin{minted}{python}
-fick_rätt = ställ_fråga("Hur mycket är 1432 + 234?",
-                        "1666")
+ställ_fråga("Hur mycket är 1432 + 234?",
+            "1666")
   \end{minted}
   \only<article>{%
-    Nu kommer [[fick_rätt]] att ha värdet [[True]] om användaren svarade rätt, 
-    annars [[False]].
     Utmatningen blir följande:
   }\only<presentation>{%
     Utmatning:
@@ -349,10 +363,6 @@ Hur mycket är 1432 + 234?
 Svar: 1667
 Det var fel svar! Rätt svar är 1666.
   \end{minted}
-  \only<article>{%
-    Här kommer [[fick_rätt]] att ha värdet [[False]] eftersom att användaren 
-    svarade fel.
-  }
 \end{example}
 \end{frame}
 
@@ -492,7 +502,6 @@ På så vis är det enklare om användaren kan få flera svarsalternativ att vä
 mellan.
 
 \dots
-
 
 \begin{frame}[allowframebreaks]
   \printbibliography
