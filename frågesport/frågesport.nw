@@ -46,14 +46,9 @@ frågesport.
 
   Denna helhet måste nu plockas isär genom variation i de relevanta aspekterna 
   vi är ute efter, nämligen lärandemålen:
-  \begin{itemize}
-    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
-    korrekt, förklara vad koden gör;
-    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
-    en detaljnivå lämpad för programmering; samt
-    \item använda existerande programkod som block i egna program, dvs 
-    \enquote{remixa} existerande program till nya.
-  \end{itemize}
+  \LOread*
+  \LOwrite*
+  \LOmodify*
 }
 \begin{frame}[fragile]
 \begin{example}[Använda programmet]\label{ExampleRun}
@@ -178,12 +173,8 @@ På samma sätt som i exemplet ovan\only<article>{
   \enquote{svengelska}.
 
   Detta bidrar till lärandemålen:
-  \begin{itemize}
-    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
-    korrekt, förklara vad koden gör; samt
-    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
-    en detaljnivå lämpad för programmering.
-  \end{itemize}
+  \LOread*
+  \LOwrite*
 }}
 \begin{onlyenv}<2>
 <<ställ frågan [[fråga]] med svaret [[rätt_svar]]>>=
@@ -260,11 +251,8 @@ Om vi nu vill använda funktionen kan vi göra såhär.
   Eleverna kan då lära sig hur de kan variera argumenten till funktionen för 
   att åstadkomma olika frågor.
 
-  Detta fokuserar på lärandemålet
-  \begin{itemize}
-    \item använda existerande programkod som block i egna program, dvs 
-    \enquote{remixa} existerande program till nya.
-  \end{itemize}
+  Detta fokuserar på
+  \LOmodify*
 }
 \begin{frame}[fragile]
 \begin{example}[Använda funktionen]\label{ExampleStockholm}
@@ -376,11 +364,8 @@ som i \cref{ExampleRun}.
   [[<<huvudprogrammet>>]]
   för att variera användarens möjliga inmatningar.
 
-  Även här fokuserar vi på lärandemålet
-  \begin{itemize}
-    \item använda existerande programkod som block i egna program, dvs 
-    \enquote{remixa} existerande program till nya.
-  \end{itemize}
+  Även här fokuserar vi på
+  \LOmodify*
 }
 \begin{frame}[fragile]
 <<huvudprogrammet>>=
@@ -404,11 +389,8 @@ Huvudprogrammet som helhet blir då följande:
   Med det har vi gått igenom de olika variationsteoretiska stegen: kontrast, 
   generalisering och, nu, fusion---men bara för användandet av funktionen 
   [[ställ_fråga]].
-  Dvs relaterat till lärandemålet
-  \begin{itemize}
-    \item använda existerande programkod som block i egna program, dvs 
-    \enquote{remixa} existerande program till nya.
-  \end{itemize}
+  Dvs relaterat till
+  \LOmodify*
 
   För att täcka de andra lärandemålen behöver vi mer variation i algoritmiska 
   konstruktioner och motsvarande översättningar till Python.
@@ -451,13 +433,9 @@ varje fråga.
   \Cref{QuestionBanks,MathQuestions,MultipleChoice} är alla variationer på den 
   ursprungliga algoritmen i \cref{AskingQuestions}.
   Detta krävs för att vi ska kunna åstadkomma tillräckligt med variation för 
-  att täcka lärandemålen
-  \begin{itemize}
-    \item läsa grundläggande programkod med enkla konstruktioner och, mestadels 
-    korrekt, förklara vad koden gör; samt
-    \item konstruera enkla algoritmer (inte syntaktiskt korrekt programkod) på 
-    en detaljnivå lämpad för programmering.
-  \end{itemize}
+  att täcka
+  \LOread*
+  \LOwrite*
 
   Detta kommer naturligtvis att introducera nya \enquote{kodblock} som vi måste 
   introducera lämplig variation för för att eleverna ska kunna använda dem 
